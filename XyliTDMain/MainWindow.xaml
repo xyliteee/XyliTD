@@ -1,0 +1,38 @@
+﻿<Window x:Class="XyliTDMain.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:XyliTDMain"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="600" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize" WindowStyle="None" Background="{StaticResource BackColorBrush}">
+    <WindowChrome.WindowChrome>
+        <WindowChrome
+  ResizeBorderThickness="0"
+  CaptionHeight="30"
+  CornerRadius="0"
+  UseAeroCaptionButtons="False"
+  GlassFrameThickness="2"/>
+    </WindowChrome.WindowChrome>
+    <Canvas x:Name="MainBase" Height="600" Width="800">
+        <Canvas x:Name="TopBar" Height="30" Width="800">
+            <Border Height="30" Width="800" Background="{StaticResource BlueLight_To_Green}"/>
+            <Button x:Name="ShutdownButton" Height="30" Width="50" WindowChrome.IsHitTestVisibleInChrome="True" Canvas.Right="0" Click="ShutdownButton_Click" Style="{StaticResource ShutdownButtonStyle}"/>
+            <Label  IsHitTestVisible="False" Height="30" Width="50" Canvas.Right="0" Background="Transparent" BorderThickness="0" Content="×" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0,0,0,0" Foreground="White"/>
+            <Button x:Name="MinsizeButton" Height="30" Width="50" WindowChrome.IsHitTestVisibleInChrome="True" Canvas.Right="50" Click="MinsizeButton_Click" Style="{StaticResource minButtonStyle}"/>
+            <Label  IsHitTestVisible="False" Height="30" Width="50" Canvas.Right="50" Background="Transparent" BorderThickness="0" Content="·" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0,0,0,0" Foreground="White" FontWeight="Bold"/>
+            <Button x:Name="MenuButton" Height="30" Width="50" WindowChrome.IsHitTestVisibleInChrome="True" Canvas.Left="0" Click="MenuButton_Click" Style="{StaticResource menuButtonStyle}"/>
+        </Canvas>
+        <Canvas x:Name="MenuBar" Height="570" Canvas.Top="30" Width="50" Canvas.Left="0">
+            <Canvas.Background>
+                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                    <GradientStop Color="{StaticResource Xy_Blue_Light}" Offset="0" />
+                    <GradientStop Color="{StaticResource Xy_Blue_Dark}" Offset="1" />
+                </LinearGradientBrush>
+            </Canvas.Background>
+            <Button x:Name="MainPageButton" Width="50" Height="50" Style="{StaticResource menusButtonStyle}" Click="MainPageButton_Click"/>
+            <Border x:Name="MenuSlider" Height="40" Width="5" Background="{StaticResource Xy_Blue_Brush}" Canvas.Top="5"/>
+        </Canvas>
+        <Frame x:Name="PageContent" Canvas.Left="50" Width="750" Height="570" Canvas.Top="30" BorderThickness="0" Background="Transparent" NavigationUIVisibility="Hidden"/>
+    </Canvas>
+</Window>
