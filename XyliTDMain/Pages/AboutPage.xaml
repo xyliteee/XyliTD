@@ -9,7 +9,7 @@
       Title="AboutPage" Background="{StaticResource BackColorBrush}" CacheMode="BitmapCache">
 
     <Canvas>
-        <Label Background="Transparent" BorderThickness="0" Canvas.Top="30" Width="750" Height="100" Content="XyliTeeeDecoder" Foreground="{StaticResource BlueLight_To_Green}" FontSize="48" FontWeight="Bold"/>
+        <Label Background="Transparent" BorderThickness="0" Canvas.Top="30" Width="750" Height="100" Content="XyliTeeeDecrypter" Foreground="{StaticResource BlueLight_To_Green}" FontSize="48" FontWeight="Bold"/>
         <Label Background="Transparent" BorderThickness="0" Canvas.Top="120" Width="750" Height="40" Content="一个用于NCM文件脱壳的小玩意" Foreground="{StaticResource BlueLight_To_Green}" FontSize="24"/>
         <Label Background="Transparent" BorderThickness="0" Canvas.Top="160" Width="750" Height="40" Content="仅供学习使用，请勿用于非法行为" Foreground="{StaticResource BlueLight_To_Green}" FontSize="24"/>
     </Canvas>

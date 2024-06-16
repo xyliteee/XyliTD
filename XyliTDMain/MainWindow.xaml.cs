@@ -26,7 +26,7 @@ namespace XyliTDMain
             GlobalContent.HomePage = new();
             GotoPage(GlobalContent.HomePage);
         }
-        private void GotoPage(Page page) 
+        private  void GotoPage(Page page) 
         {
             Animations.FrameMoving(PageContent, 100,30);
             Animations.ChangeOP(PageContent, 0, 1, 0.3);
