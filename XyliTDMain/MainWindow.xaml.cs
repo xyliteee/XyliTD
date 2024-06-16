@@ -18,14 +18,32 @@ namespace XyliTDMain
     /// </summary>
     public partial class MainWindow : Window
     {
-        private static bool isMenuShowing = true;
         public MainWindow()
         {
             InitializeComponent();
             UISetting_Initialize();
             GlobalContent.MainWindow = this;
-            GlobalContent.HomePage ??= new();
-            PageContent.Navigate(GlobalContent.HomePage);
+            GlobalContent.HomePage = new();
+            GotoPage(GlobalContent.HomePage);
+        }
+        private void GotoPage(Page page) 
+        {
+            Animations.FrameMoving(PageContent, 100,30);
+            Animations.ChangeOP(PageContent, 0, 1, 0.3);
+            PageContent.Navigate(page);
+            Dictionary<Type, int> pageAndSilderLocation = new() 
+            {
+                { typeof(HomePage),5},
+                { typeof(AboutPage),505}
+            };
+            foreach (var item in pageAndSilderLocation) 
+            {
+                if (page.GetType() == item.Key) 
+                {
+                    Animations.PageSilderMoveing(MenuSlider, item.Value);
+                    break;
+                }
+            }
         }
 
         private void UISetting_Initialize() 
@@ -42,25 +60,18 @@ namespace XyliTDMain
             WindowState = WindowState.Minimized;
         }
 
-        private void MenuButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (isMenuShowing)
-            {
-                Animations.HorizoneMoveing(MenuBar, null, -50, 0.5);
-                isMenuShowing = false;
-            }
-            else
-            {
-                Animations.HorizoneMoveing(MenuBar, null, 0, 0.5);
-                isMenuShowing = true;
-            }
-
-        }
-
         private void MainPageButton_Click(object sender, RoutedEventArgs e)
         {
             GlobalContent.HomePage ??= new();
-            PageContent.Navigate(GlobalContent.HomePage);
+            if (PageContent.Content == GlobalContent.HomePage) return;
+            GotoPage(GlobalContent.HomePage);
+        }
+
+        private void AboutPageButton_Click(object sender, RoutedEventArgs e)
+        {
+            GlobalContent.AboutPage ??= new();
+            if (PageContent.Content == GlobalContent.AboutPage) return;
+            GotoPage(GlobalContent.AboutPage);
         }
     }
 }

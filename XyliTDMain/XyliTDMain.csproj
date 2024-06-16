@@ -9,11 +9,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Image\Icons\About.png" />
+    <None Remove="Image\Icons\Convert.png" />
     <None Remove="Image\Icons\OpenFile.png" />
     <None Remove="Image\Icons\OpenFilePath.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Image\Icons\About.png" />
+    <Resource Include="Image\Icons\Convert.png" />
     <Resource Include="Image\Icons\OpenFile.png" />
     <Resource Include="Image\Icons\OpenFilePath.png" />
   </ItemGroup>

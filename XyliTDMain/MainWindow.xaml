@@ -21,7 +21,6 @@
             <Label  IsHitTestVisible="False" Height="30" Width="50" Canvas.Right="0" Background="Transparent" BorderThickness="0" Content="×" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0,0,0,0" Foreground="White"/>
             <Button x:Name="MinsizeButton" Height="30" Width="50" WindowChrome.IsHitTestVisibleInChrome="True" Canvas.Right="50" Click="MinsizeButton_Click" Style="{StaticResource minButtonStyle}"/>
             <Label  IsHitTestVisible="False" Height="30" Width="50" Canvas.Right="50" Background="Transparent" BorderThickness="0" Content="·" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0,0,0,0" Foreground="White" FontWeight="Bold"/>
-            <Button x:Name="MenuButton" Height="30" Width="50" WindowChrome.IsHitTestVisibleInChrome="True" Canvas.Left="0" Click="MenuButton_Click" Style="{StaticResource menuButtonStyle}"/>
         </Canvas>
         <Canvas x:Name="MenuBar" Height="570" Canvas.Top="30" Width="50" Canvas.Left="0">
             <Canvas.Background>
@@ -30,8 +29,13 @@
                     <GradientStop Color="{StaticResource Xy_Blue_Dark}" Offset="1" />
                 </LinearGradientBrush>
             </Canvas.Background>
-            <Button x:Name="MainPageButton" Width="50" Height="50" Style="{StaticResource menusButtonStyle}" Click="MainPageButton_Click"/>
-            <Border x:Name="MenuSlider" Height="40" Width="5" Background="{StaticResource Xy_Blue_Brush}" Canvas.Top="5"/>
+            <Button x:Name="MainPageButton" Cursor="Hand" Width="50" Height="50" Style="{StaticResource menusButtonStyle}" Click="MainPageButton_Click" Opacity="0.4"/>
+            <Image Width="32" Height="32" Canvas.Top="9" Canvas.Left="12" Source="Image/Icons/Convert.png" IsHitTestVisible="False"/>
+
+            <Button x:Name="AboutPageButton" Canvas.Top="500" Cursor="Hand" Width="50" Height="50" Style="{StaticResource menusButtonStyle}" Click="AboutPageButton_Click" Opacity="0.4"/>
+            <Image Width="32" Height="32" Canvas.Top="509" Canvas.Left="12" Source="Image/Icons/About.png" IsHitTestVisible="False"/>
+            <Border x:Name="MenuSlider" Height="40" Width="5" Background="{StaticResource Xy_Blue_Brush}" Canvas.Top="5" CacheMode="BitmapCache"/>
+
         </Canvas>
         <Frame x:Name="PageContent" Canvas.Left="50" Width="750" Height="570" Canvas.Top="30" BorderThickness="0" Background="Transparent" NavigationUIVisibility="Hidden"/>
     </Canvas>

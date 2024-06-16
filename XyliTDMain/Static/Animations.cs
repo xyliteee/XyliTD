@@ -11,13 +11,13 @@ namespace XyliTDMain.Static
 {
     internal class Animations
     {
-        static public void FrameMoving(FrameworkElement widget, double? from)
+        static public void FrameMoving(FrameworkElement widget, double? from,double? to)
         {
 
             DoubleAnimation animation = new()
             {
                 From = from,
-                To = 0,
+                To = to,
                 Duration = new Duration(TimeSpan.FromSeconds(0.3)),
                 EasingFunction = new QuadraticEase { EasingMode = EasingMode.EaseOut }
             };
@@ -33,7 +33,7 @@ namespace XyliTDMain.Static
             };
             widget.BeginAnimation(UIElement.OpacityProperty, animation);
         }
-        static public void PageSilderMoveing(Canvas canvas, int end)
+        static public void PageSilderMoveing(FrameworkElement canvas, int end)
         {
             DoubleAnimation animation = new()
             {

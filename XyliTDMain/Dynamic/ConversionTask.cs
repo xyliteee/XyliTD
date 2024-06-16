@@ -65,26 +65,42 @@ namespace XyliTDMain.Dynamic
 
         private void GetImage() 
         {
-            void UpdataImage(string imagePath)
+            string url = MusicInfo.albumPic!;
+            string imagePath = Path.Combine(WorkDirectory.ImagePath, MusicInfo.musicName! + ".jpg");
+            void UpdataImage()
             {
                 Application.Current.Dispatcher.Invoke(() =>
                 {
-                    Uri imageUri = new(imagePath, UriKind.Absolute);
-                    BitmapImage imageBitmap = new(imageUri);
-                    UISingleCard!.MusicImage.Source = imageBitmap;
+                    try
+                    {
+                        Uri imageUri = new(imagePath, UriKind.Absolute);
+                        BitmapImage imageBitmap = new(imageUri);
+                        UISingleCard!.MusicImage.Source = imageBitmap;
+                    }
+                    catch {}
                 });
             }
-            Task.Run(async() => 
+            async Task DownloadImage() 
             {
-                string url = MusicInfo.albumPic!;
-                string imagePath = Path.Combine(WorkDirectory.ImagePath, MusicInfo.musicName! + ".jpg");
+                MemoryStream stream;
+                try 
+                {
+                    stream = await Downloader.DownloadAsync(url);
+                    using FileStream fileStream = new(imagePath, FileMode.Create, FileAccess.Write);
+                    await stream.CopyToAsync(fileStream);
+                } catch 
+                {
+                }
+            }
+            Task.Run(async () => 
+            {
                 if (!File.Exists(imagePath))
                 {
-                    Downloader downloader = new(string.Empty);
-                    await downloader.DownloadAsync(url, imagePath);
+                    await DownloadImage();
                 }
-                UpdataImage(imagePath);
+                UpdataImage();
             });
+            
         }
 
         public async Task ConvertAsync()

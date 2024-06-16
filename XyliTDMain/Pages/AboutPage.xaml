@@ -1,0 +1,16 @@
+﻿<Page x:Class="XyliTDMain.Pages.AboutPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:XyliTDMain.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="570" d:DesignWidth="750"
+      Title="AboutPage" Background="{StaticResource BackColorBrush}" CacheMode="BitmapCache">
+
+    <Canvas>
+        <Label Background="Transparent" BorderThickness="0" Canvas.Top="30" Width="750" Height="100" Content="XyliTeeeDecoder" Foreground="{StaticResource BlueLight_To_Green}" FontSize="48" FontWeight="Bold"/>
+        <Label Background="Transparent" BorderThickness="0" Canvas.Top="120" Width="750" Height="40" Content="一个用于NCM文件脱壳的小玩意" Foreground="{StaticResource BlueLight_To_Green}" FontSize="24"/>
+        <Label Background="Transparent" BorderThickness="0" Canvas.Top="160" Width="750" Height="40" Content="仅供学习使用，请勿用于非法行为" Foreground="{StaticResource BlueLight_To_Green}" FontSize="24"/>
+    </Canvas>
+</Page>

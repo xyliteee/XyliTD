@@ -214,11 +214,7 @@ namespace XyliTDMain.Pages
             GlobalContent.conversionTaskList.Add(conversionTask);
             CreateCard(index, GlobalContent.conversionTaskList[index]);
             ScrollCanvas.Height = 90 * index;
-            try
-            {
-                await Task.Run(conversionTask.ConvertAsync);
-            }
-            catch (Exception e) { Debug.WriteLine(e.Message); }
+            await Task.Run(conversionTask.ConvertAsync);
         }
         private void ShowDiaglog(MusicInfo musicInfo) 
         {

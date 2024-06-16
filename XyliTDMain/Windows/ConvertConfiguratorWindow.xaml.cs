@@ -51,16 +51,11 @@ namespace XyliTDMain.Windows
 
         private void YesButton_Click(object sender, RoutedEventArgs e)
         {
-            try 
-            {
-                Directory.CreateDirectory(Path.GetDirectoryName(OutputFileBox.Text)!);
-                convertConfiguration.isYes = true;
-                convertConfiguration.url = UrlBox.Text;
-                convertConfiguration.filePath = OutputFileBox.Text;
-            } 
-            catch
-            {
-            }
+            
+            Directory.CreateDirectory(Path.GetDirectoryName(OutputFileBox.Text)!);
+            convertConfiguration.isYes = true;
+            convertConfiguration.url = UrlBox.Text;
+            convertConfiguration.filePath = OutputFileBox.Text;
             Close();
         }
 
