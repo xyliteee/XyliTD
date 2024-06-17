@@ -41,7 +41,6 @@ namespace XyliTDMain.Dynamic
         {
             MusicInfo musicInfo;
             FileStream ncmFile = new(inputFilePath, FileMode.Open, FileAccess.Read);
-    
 
             byte[] header = ReadBytes(ncmFile, 8);
             if (BitConverter.ToString(header).Replace("-", "") != "4354454E4644414D")
@@ -49,7 +48,7 @@ namespace XyliTDMain.Dynamic
 
             ncmFile.Seek(2, SeekOrigin.Current);
             int keyLength = BitConverter.ToInt32(ReadBytes(ncmFile, 4), 0);
-            byte[] keyData = ReadBytes(ncmFile, keyLength);
+            ncmFile.Seek(keyLength, SeekOrigin.Current);
 
             int metaLength = BitConverter.ToInt32(ReadBytes(ncmFile, 4), 0);
             byte[] metaData = ReadBytes(ncmFile, metaLength);
@@ -62,6 +61,7 @@ namespace XyliTDMain.Dynamic
             JObject meta = JObject.Parse(metaJson);
             musicInfo = new(meta);
             ncmFile.Seek(0, SeekOrigin.Begin);
+
             return (musicInfo,ncmFile);
         }
 
