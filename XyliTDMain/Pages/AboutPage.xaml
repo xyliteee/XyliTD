@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:XyliTDMain.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="570" d:DesignWidth="750"
+      d:DesignHeight="460" d:DesignWidth="750"
       Title="AboutPage" Background="{StaticResource BackColorBrush}" CacheMode="BitmapCache">
 
     <Canvas>

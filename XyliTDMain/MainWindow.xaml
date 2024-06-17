@@ -37,6 +37,29 @@
             <Border x:Name="MenuSlider" Height="40" Width="5" Background="{StaticResource Xy_Blue_Brush}" Canvas.Top="5" CacheMode="BitmapCache"/>
 
         </Canvas>
-        <Frame x:Name="PageContent" Canvas.Left="50" Width="750" Height="570" Canvas.Top="30" BorderThickness="0" Background="Transparent" NavigationUIVisibility="Hidden"/>
+        <Frame x:Name="PageContent" Canvas.Left="50" Width="750" Height="460" Canvas.Top="30" BorderThickness="0" Background="Transparent" NavigationUIVisibility="Hidden"/>
+        <Border x:Name="AudioPlayerBorder" Canvas.Left="60" Canvas.Bottom="10" Width="730" Height="100"  CornerRadius="10" AllowDrop="True" DragEnter="Window_DragEnter" Drop="Window_Drop">
+            <Border.Effect>
+                <DropShadowEffect ShadowDepth="0" BlurRadius="2" Color="#777777" Opacity="0.6"/>
+            </Border.Effect>
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                    <GradientStop x:Name="GradientStop1" Color="{StaticResource Xy_Blue_Light}" Offset="0" />
+                    <GradientStop x:Name="GradientStop2" Color="{StaticResource Xy_Green}" Offset="1" />
+                </LinearGradientBrush>
+            </Border.Background>
+            <Canvas Height="100" Width="710" AllowDrop="True">
+                <Image x:Name="PlayImage" Width="32" Height="32" Canvas.Left="339" Canvas.Bottom="5" Source="/Image/Icons/Play.png"/>
+                <Button x:Name="PlayButton" Width="32" Height="32" Canvas.Left="339" Canvas.Bottom="5" Click="PlayButton_Click" Opacity="0"/>
+                <Image Width="32" Height="32" Canvas.Left="299" Canvas.Bottom="5" Source="/Image/Icons/Last.png"/>
+                <Button x:Name="LastButton" Width="32" Height="32" Canvas.Left="299" Canvas.Bottom="5" Click="LastButton_Click" Opacity="0"/>
+                <Image Width="32" Height="32" Canvas.Left="379" Canvas.Bottom="5" Source="/Image/Icons/Next.png"/>
+                <Button x:Name="NextButton" Width="32" Height="32" Canvas.Left="379" Canvas.Bottom="5" Click="NextButton_Click" Opacity="0"/>
+                <Slider x:Name="AudioTimeSlider" Width="600" Canvas.Left="100" Canvas.Top="5" Height="20" Minimum="0" Maximum="100" Loaded="AudioTimeSlider_Loaded" ValueChanged="AudioTimeSlider_ValueChanged" />
+                <Label x:Name="AudioTimeLabel" BorderThickness="0" Background="Transparent" Canvas.Left="10" Width="80" Canvas.Top="5" Height="20" Padding="0,0,0,0" Content="0:00/0:00" FontSize="13" Foreground="White"/>
+                <Label x:Name ="MusicTitle" BorderThickness="0" Background="Transparent" Height="30" Canvas.Top="25" Canvas.Left="10" Width="690" Padding="0,0,0,0" Content="等待播放" FontSize="16" Foreground="White"/>
+                <Slider x:Name="VolumeSlider" Canvas.Bottom="15" Canvas.Left="20" Width="100" Minimum="0" Maximum="100" Value="100" ValueChanged="VolumeSlider_ValueChanged"/>
+            </Canvas>
+        </Border>
     </Canvas>
 </Window>

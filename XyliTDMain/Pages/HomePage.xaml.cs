@@ -10,6 +10,7 @@ using XyliTDMain.Dynamic;
 using System.Windows.Media.Animation;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using Microsoft.Win32;
 
 
 namespace XyliTDMain.Pages
@@ -189,7 +190,7 @@ namespace XyliTDMain.Pages
             {
                 string filePath = conversionTask.outputFilePath;
                 if (!File.Exists(filePath)) return;
-                Process.Start(new ProcessStartInfo(filePath) { UseShellExecute = true });
+                MediaPlayerController.LoadMusic(filePath, conversionTask.MusicInfo.musicName!, conversionTask.MusicInfo.artistString);
             });
 
 
