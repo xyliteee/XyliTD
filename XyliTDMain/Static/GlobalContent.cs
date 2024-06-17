@@ -12,7 +12,6 @@ namespace XyliTDMain.Static
         public static MainWindow MainWindow { get; set; }
         public static HomePage HomePage { set; get; }
         public static AboutPage AboutPage { set; get; }
-        
-        
+ 
     }
 }

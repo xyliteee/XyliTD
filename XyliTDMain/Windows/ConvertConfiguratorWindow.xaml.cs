@@ -24,7 +24,7 @@ namespace XyliTDMain.Windows
     public partial class ConvertConfiguratorWindow : Window
     {
 
-        private bool isAnalyzed = false;
+
         public ConvertConfiguration convertConfiguration;
         public class ConvertConfiguration
         {
@@ -33,6 +33,19 @@ namespace XyliTDMain.Windows
             public bool isYes = false;
             public MusicInfo MusicInfo;
             public FileStream ncmFile;
+            public void Dispose()
+            {
+                if (ncmFile != null)
+                {
+                    ncmFile.Close();
+                    ncmFile.Dispose();
+                    ncmFile = null;
+                }
+            }
+            ~ConvertConfiguration()
+            {
+                Dispose();
+            }
         }
         public ConvertConfiguratorWindow(ConvertConfiguration convertConfiguration)
         {
@@ -108,7 +121,6 @@ namespace XyliTDMain.Windows
 
         private void UrlBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            isAnalyzed = false;
             YesButton.IsEnabled = false;
             MusicTitle.Content = "=等待解析=";
             Artist.Content = "-----";
@@ -118,7 +130,6 @@ namespace XyliTDMain.Windows
                 try 
                 {
                     (convertConfiguration.MusicInfo, convertConfiguration.ncmFile) = ConversionTask.Analysis(filePath);
-                    isAnalyzed = true;
                     MusicInfo mi = convertConfiguration.MusicInfo;
                     OutputFileBox.Text = Path.Combine(WorkDirectory.defaultMusicPath, mi.musicName! + "." + mi.format);
                     MusicTitle.Content = mi.musicName;

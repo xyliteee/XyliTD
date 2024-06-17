@@ -9,15 +9,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 using XyliNet;
 using XyliTDMain.Static;
+using static XyliTDMain.Windows.ConvertConfiguratorWindow;
 
 namespace XyliTDMain.Dynamic
 {
     public class ConversionTask
     {
-        private readonly byte[] coreKey;
-        private readonly byte[] metaKey;
+        private static readonly byte[] coreKey = StringToByteArray("687A4852416D736F356B496E62617857");
+        private static readonly byte[] metaKey = StringToByteArray("2331346C6A6B5F215C5D2630553C2728");
         public readonly string inputFilePath;
         public readonly string outputFilePath;
         public readonly string? title;
@@ -26,20 +28,20 @@ namespace XyliTDMain.Dynamic
         private int lastPercentConverted = 0;
         public SingleCard? UISingleCard;
         private readonly FileStream ncmFile;
-        public ConversionTask(string inputFilePath,string outputFilePath,MusicInfo musicinfo,FileStream ncmFile) 
+        private ConvertConfiguration convertConfiguration;
+        public ConversionTask(ConvertConfiguration c) 
         {
-            this.inputFilePath = inputFilePath;
-            this.outputFilePath = outputFilePath;
-            this.ncmFile = ncmFile;
-            MusicInfo = musicinfo;
-            coreKey = StringToByteArray("687A4852416D736F356B496E62617857");
-            metaKey = StringToByteArray("2331346C6A6B5F215C5D2630553C2728");
+            convertConfiguration = c;
+            inputFilePath = convertConfiguration.url;
+            outputFilePath = convertConfiguration.filePath;
+            ncmFile = convertConfiguration.ncmFile;
+            MusicInfo = convertConfiguration.MusicInfo;
         }
         public static (MusicInfo,FileStream)Analysis(string inputFilePath)
         {
             MusicInfo musicInfo;
             FileStream ncmFile = new(inputFilePath, FileMode.Open, FileAccess.Read);
-            byte[] metaKey = StringToByteArray("2331346C6A6B5F215C5D2630553C2728");
+    
 
             byte[] header = ReadBytes(ncmFile, 8);
             if (BitConverter.ToString(header).Replace("-", "") != "4354454E4644414D")
@@ -73,19 +75,23 @@ namespace XyliTDMain.Dynamic
                 {
                     try
                     {
-                        Uri imageUri = new(imagePath, UriKind.Absolute);
-                        BitmapImage imageBitmap = new(imageUri);
+                        BitmapImage imageBitmap = new();
+                        imageBitmap.BeginInit();
+                        imageBitmap.CacheOption = BitmapCacheOption.OnLoad;
+                        imageBitmap.UriSource = new Uri(imagePath, UriKind.Absolute);
+                        imageBitmap.DecodePixelWidth = 60;
+                        imageBitmap.EndInit();
+                        imageBitmap.Freeze();
                         UISingleCard!.MusicImage.Source = imageBitmap;
                     }
-                    catch {}
+                    catch { }
                 });
             }
             async Task DownloadImage() 
             {
-                MemoryStream stream;
                 try 
                 {
-                    stream = await Downloader.DownloadAsync(url);
+                    using MemoryStream stream = await Downloader.DownloadAsync(url);
                     using FileStream fileStream = new(imagePath, FileMode.Create, FileAccess.Write);
                     await stream.CopyToAsync(fileStream);
                 } catch 
@@ -173,7 +179,7 @@ namespace XyliTDMain.Dynamic
                     UISingleCard!.ProgressBar.Value = percentConverted;
                 });
             }
-            ncmFile.Close();
+            
             Application.Current.Dispatcher.Invoke(() => 
             {
                 UISingleCard!.StateLabel.Content = "转换完成";
@@ -191,7 +197,7 @@ namespace XyliTDMain.Dynamic
                 Array.Resize(ref buffer, read);
             return buffer;
         }
-        private  static byte[] DecryptAES(byte[] key, byte[] data)
+        private static byte[] DecryptAES(byte[] key, byte[] data)
         {
             using Aes aes = Aes.Create();
             aes.Key = key;

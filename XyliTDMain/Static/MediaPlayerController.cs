@@ -29,6 +29,7 @@ namespace XyliTDMain.Static
                     TotalTime = (int)MediaPlayer.NaturalDuration.TimeSpan.TotalSeconds;
                     IsPlayingAudio = false;
                     GlobalContent.MainWindow.MusicTitle.Content = name + "--" + artist;
+                    GlobalContent.MainWindow.AudioTimeSlider.IsEnabled = true;
                     Timer = new()
                     {
                         Interval = TimeSpan.FromSeconds(0.5),

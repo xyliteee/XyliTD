@@ -11,6 +11,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using Microsoft.Win32;
+using System.Runtime.Serialization.Json;
 
 
 namespace XyliTDMain.Pages
@@ -239,10 +240,7 @@ namespace XyliTDMain.Pages
         {
             var convertConfiguration = XyMessageBox.ShowDownloadConfiguratorWindow();
             if (!convertConfiguration.isYes) return;
-            ADDTask(new ConversionTask(convertConfiguration.url, convertConfiguration.filePath,convertConfiguration.MusicInfo,convertConfiguration.ncmFile));
-        }
-
-      
-        
+            ADDTask(new ConversionTask(convertConfiguration));
+        }  
     }
 }
