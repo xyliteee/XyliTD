@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:XyliTDMain"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize" WindowStyle="None" Background="{StaticResource BackColorBrush}">
+        Title="XyliTD" Height="600" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize" WindowStyle="None" Background="{StaticResource BackColorBrush}">
     <WindowChrome.WindowChrome>
         <WindowChrome
   ResizeBorderThickness="0"
@@ -50,15 +50,15 @@
             </Border.Background>
             <Canvas Height="100" Width="710" AllowDrop="True">
                 <Image x:Name="PlayImage" Width="32" Height="32" Canvas.Left="339" Canvas.Bottom="5" Source="/Image/Icons/Play.png"/>
-                <Button x:Name="PlayButton" Width="32" Height="32" Canvas.Left="339" Canvas.Bottom="5" Click="PlayButton_Click" Opacity="0"/>
+                <Button x:Name="PlayButton"  Cursor="Hand" Width="32" Height="32" Canvas.Left="339" Canvas.Bottom="5" Click="PlayButton_Click" Opacity="0"/>
                 <Image Width="32" Height="32" Canvas.Left="299" Canvas.Bottom="5" Source="/Image/Icons/Last.png"/>
-                <Button x:Name="LastButton" Width="32" Height="32" Canvas.Left="299" Canvas.Bottom="5" Click="LastButton_Click" Opacity="0"/>
+                <Button x:Name="LastButton" Cursor="Hand" Width="32" Height="32" Canvas.Left="299" Canvas.Bottom="5" Click="LastButton_Click" Opacity="0"/>
                 <Image Width="32" Height="32" Canvas.Left="379" Canvas.Bottom="5" Source="/Image/Icons/Next.png"/>
-                <Button x:Name="NextButton" Width="32" Height="32" Canvas.Left="379" Canvas.Bottom="5" Click="NextButton_Click" Opacity="0"/>
-                <Slider x:Name="AudioTimeSlider" Width="600" Canvas.Left="100" Canvas.Top="5" Height="20" Minimum="0" Maximum="100" Loaded="AudioTimeSlider_Loaded" ValueChanged="AudioTimeSlider_ValueChanged" />
+                <Button x:Name="NextButton"  Cursor="Hand" Width="32" Height="32" Canvas.Left="379" Canvas.Bottom="5" Click="NextButton_Click" Opacity="0"/>
+                <Slider x:Name="AudioTimeSlider" Cursor="Hand" Width="600" Canvas.Left="100" Canvas.Top="5" Height="20" Minimum="0" Maximum="100" Loaded="AudioTimeSlider_Loaded" ValueChanged="AudioTimeSlider_ValueChanged" />
                 <Label x:Name="AudioTimeLabel" BorderThickness="0" Background="Transparent" Canvas.Left="10" Width="80" Canvas.Top="5" Height="20" Padding="0,0,0,0" Content="0:00/0:00" FontSize="13" Foreground="White"/>
                 <Label x:Name ="MusicTitle" BorderThickness="0" Background="Transparent" Height="30" Canvas.Top="25" Canvas.Left="10" Width="690" Padding="0,0,0,0" Content="等待播放" FontSize="16" Foreground="White"/>
-                <Slider x:Name="VolumeSlider" Canvas.Bottom="15" Canvas.Left="20" Width="100" Minimum="0" Maximum="100" Value="100" ValueChanged="VolumeSlider_ValueChanged"/>
+                <Slider x:Name="VolumeSlider"  Cursor="Hand" Canvas.Bottom="15" Canvas.Left="20" Width="100" Minimum="0" Maximum="100" Value="100" ValueChanged="VolumeSlider_ValueChanged"/>
             </Canvas>
         </Border>
     </Canvas>

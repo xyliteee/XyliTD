@@ -23,10 +23,15 @@ namespace XyliTDMain.Pages
         public HomePage()
         {
             InitializeComponent();
-            StartAnimation();
             Mask.Visibility = Visibility.Visible;
+            SetAddCard();
         }
 
+        private void SetAddCard()
+        {
+            int TaskCount = ScrollCanvas.Children.Count;
+            Canvas.SetTop(NewCard, 10+90*(TaskCount-1));
+        }
         private void CreateCard(int index,ConversionTask conversionTask)
         {
             Border border = new()
@@ -211,10 +216,14 @@ namespace XyliTDMain.Pages
         }
         private async void ADDTask(ConversionTask conversionTask)
         {
-            int index = GlobalContent.conversionTaskList.Count;
-            GlobalContent.conversionTaskList.Add(conversionTask);
-            CreateCard(index, GlobalContent.conversionTaskList[index]);
-            ScrollCanvas.Height = 90 * index;
+            foreach (var obj in ScrollCanvas.Children) 
+            {
+                Border border = (Border)obj;
+                Canvas.SetTop(border, Canvas.GetTop(border) + 90);
+            }
+            CreateCard(0, conversionTask);
+            SetAddCard();
+            ScrollCanvas.Height = 90 * (ScrollCanvas.Children .Count);
             await Task.Run(conversionTask.ConvertAsync);
         }
         private void ShowDiaglog(MusicInfo musicInfo) 
@@ -233,28 +242,7 @@ namespace XyliTDMain.Pages
             ADDTask(new ConversionTask(convertConfiguration.url, convertConfiguration.filePath,convertConfiguration.MusicInfo,convertConfiguration.ncmFile));
         }
 
-        private void StartAnimation()
-        {
-            ColorAnimation animation1 = new()
-            {
-                From = (Color)FindResource("Xy_Blue"),
-                To = (Color)FindResource("Xy_Green"),
-                Duration = TimeSpan.FromSeconds(1),
-                AutoReverse = true,
-                RepeatBehavior = RepeatBehavior.Forever
-            };
-
-            ColorAnimation animation2 = new()
-            {
-                From = (Color)FindResource("Xy_Green"),
-                To = (Color)FindResource("Xy_Blue"),
-                Duration = TimeSpan.FromSeconds(1),
-                AutoReverse = true,
-                RepeatBehavior = RepeatBehavior.Forever
-            };
-
-            GradientStop1.BeginAnimation(GradientStop.ColorProperty, animation1);
-            GradientStop2.BeginAnimation(GradientStop.ColorProperty, animation2);
-        }
+      
+        
     }
 }
