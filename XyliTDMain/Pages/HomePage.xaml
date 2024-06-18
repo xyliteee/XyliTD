@@ -30,10 +30,10 @@
         </Border>
 
         <Canvas Width="370" Canvas.Right="10" Canvas.Top="10" Height="440">
-            <TextBlock x:Name="MusicNameLable" Background="Transparent" Width="370" Padding="0,0,0,0" Height="120" FontSize="32" FontWeight="Bold" Foreground="{StaticResource BlueLight_To_Green}" Text="UN真的是她吗？" TextWrapping="Wrap"/>
-            <Label x:Name="ArtistNameLable" Height="30" Background="Transparent" BorderThickness="0" FontSize="16" Content="作者：Zun" Padding="0,0,0,0" Foreground="{StaticResource BlueLight_To_Green}" FontWeight="Bold" Canvas.Top="120"/>
-            <TextBlock x:Name="AlbumLable" Height="45" Width="370" TextWrapping="Wrap" Background="Transparent" FontSize="16" Text="所属专辑：東方紅魔郷～the Embodiment of Scarlet Devil. サウンドトラック" Padding="0,0,0,0" Foreground="{StaticResource BlueLight_To_Green}" FontWeight="Bold" Canvas.Top="160"/>
-            <Label x:Name="BitrateLable" Height="30" Background="Transparent" BorderThickness="0" FontSize="16" Content="比特率：3200000bps" Padding="0,0,0,0" Foreground="{StaticResource BlueLight_To_Green}" FontWeight="Bold" Canvas.Top="210"/>
+            <TextBlock x:Name="MusicNameLable" Background="Transparent" Width="370" Padding="0,0,0,0" Height="120" FontSize="32" FontWeight="Bold" Foreground="{StaticResource BlueLight_To_Green}" Text="" TextWrapping="Wrap"/>
+            <Label x:Name="ArtistNameLable" Height="30" Background="Transparent" BorderThickness="0" FontSize="16" Content="" Padding="0,0,0,0" Foreground="{StaticResource BlueLight_To_Green}" FontWeight="Bold" Canvas.Top="120"/>
+            <TextBlock x:Name="AlbumLable" Height="45" Width="370" TextWrapping="Wrap" Background="Transparent" FontSize="16" Text="" Padding="0,0,0,0" Foreground="{StaticResource BlueLight_To_Green}" FontWeight="Bold" Canvas.Top="160"/>
+            <Label x:Name="BitrateLable" Height="30" Background="Transparent" BorderThickness="0" FontSize="16" Content="" Padding="0,0,0,0" Foreground="{StaticResource BlueLight_To_Green}" FontWeight="Bold" Canvas.Top="210"/>
             <Border x:Name="Mask" Width="370" Background="{StaticResource BackColorBrush}" Height="290" Visibility="Hidden"/>
         </Canvas>
         
