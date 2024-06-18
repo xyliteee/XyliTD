@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.34916.146
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XyliTDMain", "XyliTDMain\XyliTDMain.csproj", "{52A1A739-8E94-4621-A02B-313CF4446DEF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XyliTD", "XyliTDMain\XyliTD.csproj", "{52A1A739-8E94-4621-A02B-313CF4446DEF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XyliNet", "XyliNet\XyliNet.csproj", "{0D1F143A-0E7D-4B32-83B4-ED6949920AAD}"
 EndProject
