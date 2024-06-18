@@ -196,7 +196,7 @@ namespace XyliTDMain.Pages
             {
                 string filePath = conversionTask.outputFilePath;
                 if (!File.Exists(filePath)) return;
-                MediaPlayerController.LoadMusic(filePath, conversionTask.MusicInfo.musicName!, conversionTask.MusicInfo.artistString);
+                MediaPlayerController.LoadMusic(filePath);
             });
 
 

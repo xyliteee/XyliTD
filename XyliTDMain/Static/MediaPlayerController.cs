@@ -7,6 +7,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Media;
 using System.Windows.Threading;
 using System.Diagnostics;
+using System.IO;
 #pragma warning disable CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑声明为可以为 null。
 namespace XyliTDMain.Static
 {
@@ -20,15 +21,36 @@ namespace XyliTDMain.Static
         public static bool IsControlling { get; set; } = false;
         public static int TotalTime = 0;
         public static DispatcherTimer Timer { get; set; }
-        public static void LoadMusic(string filePath,string name,string artist)
+        public static void LoadMusic(string filePath)
         {
+            string name = string.Empty;
+            string artist = string.Empty;
+            var file = TagLib.File.Create(filePath);
+            name = file.Tag.Title;
+            name ??= Path.GetFileName(filePath);
+
+            string[] artists = file.Tag.Performers;
+            if (artists.Length != 0)
+            {
+                foreach (string a in artists)
+                {
+                    artist += $"{a},";
+                }
+                artist = artist.Remove(artist.Length - 1);
+            }
+            else 
+            {
+                artist = "None";
+            }
+            
             MediaPlayer.MediaOpened += (sender, e) =>
             {
-                if (MediaPlayer.NaturalDuration.HasTimeSpan)
+                bool isCorrentFile = MediaPlayer.NaturalDuration.HasTimeSpan;
+                if (isCorrentFile)
                 {
                     TotalTime = (int)MediaPlayer.NaturalDuration.TimeSpan.TotalSeconds;
                     IsPlayingAudio = false;
-                    GlobalContent.MainWindow.MusicTitle.Content = name + "--" + artist;
+                    GlobalContent.MainWindow.MusicTitle.Content = name + " - " + artist;
                     GlobalContent.MainWindow.AudioTimeSlider.IsEnabled = true;
                     Timer = new()
                     {

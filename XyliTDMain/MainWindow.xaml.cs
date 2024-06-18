@@ -30,8 +30,9 @@ namespace XyliTDMain
             GlobalContent.MainWindow = this;
             GlobalContent.HomePage = new();
             GotoPage(GlobalContent.HomePage);
+            Refresh();
         }
-        private  void GotoPage(Page page) 
+        private void GotoPage(Page page) 
         {
             Animations.FrameMoving(PageContent, 100,30);
             Animations.ChangeOP(PageContent, 0, 1, 0.3);
@@ -39,6 +40,7 @@ namespace XyliTDMain
             Dictionary<Type, int> pageAndSilderLocation = new() 
             {
                 { typeof(HomePage),5},
+                { typeof(MysongPage),55},
                 { typeof(AboutPage),505}
             };
             foreach (var item in pageAndSilderLocation) 
@@ -54,6 +56,7 @@ namespace XyliTDMain
         private void UISetting_Initialize() 
         {
             WindowStyle = WindowStyle.SingleBorderWindow;
+            RefreshButton.Click += ((s, e) => { Refresh(); });
             StartAnimation();
         }
         private void ShutdownButton_Click(object sender, RoutedEventArgs e)
@@ -71,6 +74,12 @@ namespace XyliTDMain
             GlobalContent.HomePage ??= new();
             if (PageContent.Content == GlobalContent.HomePage) return;
             GotoPage(GlobalContent.HomePage);
+        }
+        private void MySongButton_Click(object sender, RoutedEventArgs e)
+        {
+            GlobalContent.MysongPage ??= new();
+            if (PageContent.Content == GlobalContent.MysongPage) return;
+            GotoPage(GlobalContent.MysongPage);
         }
 
         private void AboutPageButton_Click(object sender, RoutedEventArgs e)
@@ -152,7 +161,7 @@ namespace XyliTDMain
         {
             string filePath = ((string[])e.Data.GetData(DataFormats.FileDrop))[0];
             string fileName = System.IO.Path.GetFileName(filePath);
-            MediaPlayerController.LoadMusic(filePath, fileName, "None");
+            MediaPlayerController.LoadMusic(filePath);
         }
         private void StartAnimation()
         {
@@ -177,6 +186,12 @@ namespace XyliTDMain
             GradientStop2.BeginAnimation(GradientStop.ColorProperty, animation2);
         }
 
-
+        private async void Refresh()
+        {
+            GlobalContent.SongList.Clear();
+            GlobalContent.MysongPage.ScrollWarp.Children.Clear();
+            await Task.Run(GlobalContent.Function.SearchforSong);
+            GlobalContent.MysongPage.InitializeUI();
+        }
     }
 }

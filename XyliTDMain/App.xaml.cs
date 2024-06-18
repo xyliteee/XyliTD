@@ -14,6 +14,13 @@ namespace XyliTDMain
         {
             base.OnStartup(e);
             await WorkDirectory.CreatDir();
+            LoadInitSetting();
+            MainWindow mainWindow = new();
+            mainWindow.Show();
+        }
+        private static void LoadInitSetting() 
+        {
+            GlobalContent.MysongsPath.Add("C:\\Users\\99568\\Music\\");
         }
     }
 

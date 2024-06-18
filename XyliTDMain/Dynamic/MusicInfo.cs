@@ -33,7 +33,7 @@ namespace XyliTDMain.Dynamic
             artistString = GetArtistString();
         }
 
-        private string GetArtistString() 
+        public string GetArtistString() 
         {
             string artists = string.Empty;
             foreach (string[] artist in artist!)

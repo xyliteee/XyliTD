@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
 using System.Windows;
+using System.Windows.Media;
 
 namespace XyliTDMain.Static
 {
@@ -43,7 +44,6 @@ namespace XyliTDMain.Static
             };
             canvas.BeginAnimation(Canvas.TopProperty, animation);
         }
-        
         static public void HorizoneMoveing(FrameworkElement widget, int? from, int? to, double time)
         {
             DoubleAnimation animation = new()
@@ -55,5 +55,21 @@ namespace XyliTDMain.Static
             };
             widget.BeginAnimation(Canvas.LeftProperty, animation);
         }
+
+        public static void Scale(FrameworkElement widget, double? from, double? to, double time)
+        {
+            ScaleTransform scale = new();
+            widget.RenderTransform = scale;
+            widget.RenderTransformOrigin = new Point(0.5, 0.5);
+            DoubleAnimation animation = new()
+            {
+                From = from,
+                To = to,
+                Duration = TimeSpan.FromSeconds(time)
+            };
+            scale.BeginAnimation(ScaleTransform.ScaleXProperty, animation);
+            scale.BeginAnimation(ScaleTransform.ScaleYProperty, animation);
+        }
+
     }
 }
