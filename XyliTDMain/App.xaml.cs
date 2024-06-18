@@ -10,10 +10,10 @@ namespace XyliTDMain
     /// </summary>
     public partial class App : Application
     {
-        protected override async void OnStartup(StartupEventArgs e)
+        protected override  void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            await WorkDirectory.CreatDir();
+            WorkDirectory.CreatDir();
             LoadInitSetting();
             MainWindow mainWindow = new();
             mainWindow.Show();
