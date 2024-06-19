@@ -13,6 +13,8 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
+using XyliTD.Static;
 using XyliTDMain.Pages;
 using XyliTDMain.Static;
 
@@ -31,7 +33,9 @@ namespace XyliTDMain
             GlobalContent.HomePage = new();
             GotoPage(GlobalContent.HomePage);
             Refresh();
+
         }
+
         private void GotoPage(Page page) 
         {
             Animations.FrameMoving(PageContent, 100,30);
@@ -57,6 +61,7 @@ namespace XyliTDMain
         {
             WindowStyle = WindowStyle.SingleBorderWindow;
             RefreshButton.Click += ((s, e) => { Refresh(); });
+            VolumeSlider.Value = MediaPlayerController.MediaPlayer.Volume;
             StartAnimation();
         }
         private void ShutdownButton_Click(object sender, RoutedEventArgs e)
@@ -97,11 +102,19 @@ namespace XyliTDMain
         private void LastButton_Click(object sender, RoutedEventArgs e)
         {
 
+            if (GlobalContent.SongList.Count == 0) return;
+            int index = GlobalContent.SongList.IndexOf(MediaPlayerController.CurrentSongPath);
+            index = (index == 0) ? GlobalContent.SongList.Count - 1 : index - 1;
+            MediaPlayerController.LoadMusic(GlobalContent.SongList[index]);
         }
 
         private void NextButton_Click(object sender, RoutedEventArgs e)
         {
 
+            if (GlobalContent.SongList.Count == 0) return;
+            int index = GlobalContent.SongList.IndexOf(MediaPlayerController.CurrentSongPath);
+            index = (index == GlobalContent.SongList.Count - 1) ? 0 : index + 1;
+            MediaPlayerController.LoadMusic(GlobalContent.SongList[index]);
         }
 
         private void Thumb_DragCompleted(object sender, DragCompletedEventArgs e)
@@ -142,7 +155,8 @@ namespace XyliTDMain
 
         private void VolumeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            MediaPlayerController.MediaPlayer.Volume = (double)(VolumeSlider.Value/100.0);
+            MediaPlayerController.MediaPlayer.Volume = VolumeSlider.Value;
+            SettingManager.EditSetting(XyliTD.Static.Section.MediaPlayer,"volume", VolumeSlider.Value.ToString());
         }
 
         private void Window_DragEnter(object sender, DragEventArgs e)

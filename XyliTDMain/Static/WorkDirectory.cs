@@ -12,10 +12,12 @@ namespace XyliTDMain.Static
         public static readonly string rootDirectory = AppDomain.CurrentDomain.BaseDirectory;
         public static readonly string defaultMusicPath = Path.Combine(rootDirectory, "Music");
         public static readonly string ImagePath = Path.Combine(rootDirectory, "Images");
+        public static readonly string ConfigPath = Path.Combine(rootDirectory, "Config");
         public static void CreatDir() 
         {
             Directory.CreateDirectory(defaultMusicPath);
             Directory.CreateDirectory(ImagePath);
+            Directory.CreateDirectory(ConfigPath);
         }
     }
 }
