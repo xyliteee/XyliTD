@@ -63,7 +63,6 @@ namespace XyliTDMain.Static
                     Timer.Start();
                     PlayAudio();
                     CurrentSongPath = filePath;
-                    Debug.WriteLine(CurrentSongPath);
                 }
             };
             MediaPlayer.Open(new Uri(filePath));

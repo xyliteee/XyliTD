@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 
 namespace XyliTD.Dynamic
 {
-    public class IniFile
+    public partial class IniFile
     {
         private readonly string Path;
-        [DllImport("kernel32", CharSet = CharSet.Unicode)]
-        static extern long WritePrivateProfileString(string section, string key, string val, string filePath);
+        [LibraryImport("kernel32", EntryPoint = "WritePrivateProfileStringW", StringMarshalling = StringMarshalling.Utf16)]
+        private static partial long WritePrivateProfileString(string section, string key, string val, string filePath);
+
         [DllImport("kernel32", CharSet = CharSet.Unicode)]
         static extern int GetPrivateProfileString(string section, string key, string def, StringBuilder retVal, int size, string filePath);
 
