@@ -1,5 +1,5 @@
 A program for decrypting NetEase Cloud NCM files  
-It can also be used as a suggested player  
+It can also be used as a simple player  
 !!!!!! For learning reference only!!!!!!  
   
 一个用于解密网易云ncm文件的程序  
