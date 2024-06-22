@@ -1,19 +1,9 @@
-﻿using Microsoft.Win32;
-using System.Diagnostics;
-using System.IO;
-using System.Text;
+﻿
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Windows.Threading;
 using XyliTD.Static;
 using XyliTDMain.Pages;
 using XyliTDMain.Static;
@@ -30,7 +20,7 @@ namespace XyliTDMain
             InitializeComponent();
             UISetting_Initialize();
             GlobalContent.MainWindow = this;
-            GlobalContent.HomePage = new();
+            GlobalContent.HomePage = new HomePage();
             GotoPage(GlobalContent.HomePage);
             Refresh();
 
@@ -47,13 +37,10 @@ namespace XyliTDMain
                 { typeof(MysongPage),55},
                 { typeof(AboutPage),505}
             };
-            foreach (var item in pageAndSilderLocation) 
+            foreach (var item in pageAndSilderLocation.Where(item => page.GetType() == item.Key))
             {
-                if (page.GetType() == item.Key) 
-                {
-                    Animations.PageSilderMoveing(MenuSlider, item.Value);
-                    break;
-                }
+                Animations.PageSilderMoveing(MenuSlider, item.Value);
+                break;
             }
         }
 
@@ -76,21 +63,21 @@ namespace XyliTDMain
 
         private void MainPageButton_Click(object sender, RoutedEventArgs e)
         {
-            GlobalContent.HomePage ??= new();
-            if (PageContent.Content == GlobalContent.HomePage) return;
+            GlobalContent.HomePage ??= new HomePage();
+            if (Equals(PageContent.Content, GlobalContent.HomePage)) return;
             GotoPage(GlobalContent.HomePage);
         }
         private void MySongButton_Click(object sender, RoutedEventArgs e)
         {
-            GlobalContent.MysongPage ??= new();
-            if (PageContent.Content == GlobalContent.MysongPage) return;
+            GlobalContent.MysongPage ??= new MysongPage();
+            if (Equals(PageContent.Content, GlobalContent.MysongPage)) return;
             GotoPage(GlobalContent.MysongPage);
         }
 
         private void AboutPageButton_Click(object sender, RoutedEventArgs e)
         {
-            GlobalContent.AboutPage ??= new();
-            if (PageContent.Content == GlobalContent.AboutPage) return;
+            GlobalContent.AboutPage ??= new AboutPage();
+            if (Equals(PageContent.Content, GlobalContent.AboutPage)) return;
             GotoPage(GlobalContent.AboutPage);
         }
 
@@ -103,7 +90,7 @@ namespace XyliTDMain
         {
 
             if (GlobalContent.SongList.Count == 0) return;
-            int index = GlobalContent.SongList.IndexOf(MediaPlayerController.CurrentSongPath);
+            var index = GlobalContent.SongList.IndexOf(MediaPlayerController.CurrentSongPath);
             index = (index == 0) ? GlobalContent.SongList.Count - 1 : index - 1;
             MediaPlayerController.LoadMusic(GlobalContent.SongList[index]);
         }
@@ -119,38 +106,37 @@ namespace XyliTDMain
 
         private void Thumb_DragCompleted(object sender, DragCompletedEventArgs e)
         {
-            int percent = (int)AudioTimeSlider.Value;
+            var percent = (int)AudioTimeSlider.Value;
             if (MediaPlayerController.MediaPlayer.NaturalDuration.HasTimeSpan)
             {
                 double totalSeconds = MediaPlayerController.TotalTime;
-                double newSeconds = totalSeconds * percent / 100.0;
+                var newSeconds = totalSeconds * percent / 100.0;
                 MediaPlayerController.MediaPlayer.Position = TimeSpan.FromSeconds(newSeconds);
             }
             MediaPlayerController.IsControlling = false;
         }
-        private void Thumb_DragStarted(object sender, DragStartedEventArgs e)
+        private static void Thumb_DragStarted(object sender, DragStartedEventArgs e)
         {
             MediaPlayerController.IsControlling = true;
         }
 
         private void AudioTimeSlider_Loaded(object sender, RoutedEventArgs e)
         {
-            Track thumb = (Track)AudioTimeSlider.Template.FindName("PART_Track", AudioTimeSlider);
+            var thumb = (Track)AudioTimeSlider.Template.FindName("PART_Track", AudioTimeSlider);
             thumb.Thumb.DragStarted += new DragStartedEventHandler(Thumb_DragStarted);
             thumb.Thumb.DragCompleted += new DragCompletedEventHandler(Thumb_DragCompleted);
         }
 
         private void AudioTimeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            if (MediaPlayerController.MediaPlayer.NaturalDuration.HasTimeSpan && MediaPlayerController.IsControlling)
-            {
-                int percent = (int)AudioTimeSlider.Value;
-                int totalTime = (int)MediaPlayerController.TotalTime;
-                int currentTime = totalTime * percent / 100;
-                int[] totalTimes = MediaPlayerController.ToMinute(totalTime);
-                int[] currentTimes = MediaPlayerController.ToMinute(currentTime);
-                GlobalContent.MainWindow.AudioTimeLabel.Content = $"{currentTimes[0]}:{currentTimes[1]:D2}/{totalTimes[0]}:{totalTimes[1]:D2}";
-            }
+            if (!MediaPlayerController.MediaPlayer.NaturalDuration.HasTimeSpan ||
+                !MediaPlayerController.IsControlling) return;
+            var percent = (int)AudioTimeSlider.Value;
+            var totalTime = (int)MediaPlayerController.TotalTime;
+            var currentTime = totalTime * percent / 100;
+            var totalTimes = MediaPlayerController.ToMinute(totalTime);
+            var currentTimes = MediaPlayerController.ToMinute(currentTime);
+            GlobalContent.MainWindow.AudioTimeLabel.Content = $"{currentTimes[0]}:{currentTimes[1]:D2}/{totalTimes[0]}:{totalTimes[1]:D2}";
         }
 
         private void VolumeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -161,20 +147,12 @@ namespace XyliTDMain
 
         private void Window_DragEnter(object sender, DragEventArgs e)
         {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop))
-            {
-                e.Effects = DragDropEffects.Copy;
-            }
-            else
-            {
-                e.Effects = DragDropEffects.None;
-            }
+            e.Effects = e.Data.GetDataPresent(DataFormats.FileDrop) ? DragDropEffects.Copy : DragDropEffects.None;
         }
 
         private void Window_Drop(object sender, DragEventArgs e)
         {
-            string filePath = ((string[])e.Data.GetData(DataFormats.FileDrop))[0];
-            string fileName = System.IO.Path.GetFileName(filePath);
+            var filePath = ((string[])e.Data.GetData(DataFormats.FileDrop)!)[0];
             MediaPlayerController.LoadMusic(filePath);
         }
         private void StartAnimation()
@@ -200,7 +178,7 @@ namespace XyliTDMain
             GradientStop2.BeginAnimation(GradientStop.ColorProperty, animation2);
         }
 
-        private async void Refresh()
+        private static async void Refresh()
         {
             GlobalContent.SongList.Clear();
             GlobalContent.MysongPage.ScrollWarp.Children.Clear();

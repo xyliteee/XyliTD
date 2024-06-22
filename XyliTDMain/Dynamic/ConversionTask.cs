@@ -28,7 +28,7 @@ namespace XyliTDMain.Dynamic
         private int lastPercentConverted = 0;
         public SingleCard? UISingleCard;
         private readonly FileStream ncmFile;
-        private ConvertConfiguration convertConfiguration;
+        private readonly ConvertConfiguration convertConfiguration;
         public ConversionTask(ConvertConfiguration c) 
         {
             convertConfiguration = c;

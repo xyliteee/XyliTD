@@ -14,10 +14,7 @@ namespace XyliTDMain.Static
 {
     public static class MediaPlayerController
     {
-        public static readonly MediaPlayer MediaPlayer = new() 
-        {
-            Volume = 1
-        };
+        public static readonly MediaPlayer MediaPlayer = new();
         public static bool IsPlayingAudio { get; set; } = false;
         public static bool IsControlling { get; set; } = false;
         public static int TotalTime { get; set; } = 0;
@@ -89,25 +86,25 @@ namespace XyliTDMain.Static
             }
         }
 
+        private static readonly BitmapImage PlayImage = new(new Uri("pack://application:,,,/Image/Icons/Play.png"));
+        private static readonly BitmapImage StopImage = new(new Uri("pack://application:,,,/Image/Icons/Pause.png"));
         public static void PlayAudio()
         {
             if (MediaPlayer.Source == null) return;
-            BitmapImage bitmapImage;
             if (IsPlayingAudio)
             {
                 Timer.Stop();
                 MediaPlayer.Pause();
                 IsPlayingAudio = false;
-                bitmapImage = new(new Uri("pack://application:,,,/Image/Icons/Play.png"));
+                GlobalContent.MainWindow.PlayImage.Source = PlayImage;
             }
             else
             {
                 Timer.Start();
                 MediaPlayer.Play();
                 IsPlayingAudio = true;
-                bitmapImage = new(new Uri("pack://application:,,,/Image/Icons/Pause.png"));
+                GlobalContent.MainWindow.PlayImage.Source = StopImage;
             }
-            GlobalContent.MainWindow.PlayImage.Source = bitmapImage;
         }
     }
 }
