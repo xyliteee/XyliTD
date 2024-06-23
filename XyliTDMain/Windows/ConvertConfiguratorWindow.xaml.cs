@@ -1,17 +1,7 @@
 ﻿using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using XyliTDMain.Dynamic;
 using XyliTDMain.Static;
 namespace XyliTDMain.Windows
@@ -25,7 +15,7 @@ namespace XyliTDMain.Windows
     {
 
 
-        public ConvertConfiguration convertConfiguration;
+        private ConvertConfiguration convertConfiguration;
         public class ConvertConfiguration
         {
             public string url = string.Empty;
@@ -33,19 +23,6 @@ namespace XyliTDMain.Windows
             public bool isYes = false;
             public MusicInfo MusicInfo;
             public FileStream ncmFile;
-            public void Dispose()
-            {
-                if (ncmFile != null)
-                {
-                    ncmFile.Close();
-                    ncmFile.Dispose();
-                    ncmFile = null;
-                }
-            }
-            ~ConvertConfiguration()
-            {
-                Dispose();
-            }
         }
         public ConvertConfiguratorWindow(ConvertConfiguration convertConfiguration)
         {

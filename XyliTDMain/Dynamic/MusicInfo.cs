@@ -12,7 +12,7 @@ namespace XyliTDMain.Dynamic
     {
         public readonly string? musicId;
         public readonly string? musicName;
-        public readonly string[][]? artist;
+        private readonly string[][]? artist;
         public readonly string? albumId;
         public readonly string? album;
         public readonly string? albumPic;
@@ -33,10 +33,10 @@ namespace XyliTDMain.Dynamic
             artistString = GetArtistString();
         }
 
-        public string GetArtistString() 
+        private string GetArtistString() 
         {
             string artists = string.Empty;
-            foreach (string[] artist in artist!)
+            foreach (var artist in artist!)
             {
                 artists += $"{artist[0]},";
             }
