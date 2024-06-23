@@ -35,7 +35,7 @@ namespace XyliTDMain.Dynamic
 
         private string GetArtistString() 
         {
-            string artists = string.Empty;
+            var artists = string.Empty;
             foreach (var artist in artist!)
             {
                 artists += $"{artist[0]},";
